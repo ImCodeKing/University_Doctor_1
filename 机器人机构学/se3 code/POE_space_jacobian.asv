@@ -16,9 +16,7 @@ v_pri = cell(n, 1);
 xi_pri = cell(n, 1);
 
 total_exp_W{1} = eye(3);
-w_pri{1} = w{1};
 r_pri{1} = r{1};
-v_pri{1} = v{1};
 
 for i = 1:n
     signed_exp_W{i} = expm(sign{i} * theta(i) * hat(w{i}));
@@ -29,29 +27,31 @@ for i = 2:n
     total_exp_W{i} = total_exp_W{i-1} * signed_exp_W{i};
     simplify(total_exp_W{i});
 end
-for i = 2:n
-    r_pri{i} = [0;0;0];
+for i = 1:n
+    if i >= 2
+        r_pri{i} = [0;0;0];
+    end
     for j = 2:i
         r_pri{i} = r_pri{i} + total_exp_W{j-1} * r{j};
     end
-    simplify(r_pri{i});
+    simplify(r_pri{i})
 
     if ~isempty(v{i})
         assert(all(w{i} == 0), ...
             '第 %d 个关节：给了 v，但 w ≠ 0（转动关节不允许）', i);
 
         w_pri{i} = [0;0;0];
-        v_pri{i} = total_exp_W{i - 1} * v{i};
+        v_pri{i} = total_exp_W{i} * v{i};
     else
         if all(w{i} == 0)
             error('第 %d 个关节：w=0 但未给 v，无法确定移动方向', i);
         end
 
-        w_pri{i} = total_exp_W{i - 1} * w{i};
+        w_pri{i} = total_exp_W{i} * w{i};
         v_pri{i} = cross(r_pri{i}, w_pri{i});
     xi_pri{i} = [w_pri{i}; v_pri{i}];
     simplify(xi_pri{i});
     end
-    w_pri{i}
+    simplify(w)
 end
 
