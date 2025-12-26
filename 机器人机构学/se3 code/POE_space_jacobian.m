@@ -15,22 +15,24 @@ w_pri = cell(n, 1);
 v_pri = cell(n, 1);
 xi_pri = cell(n, 1);
 
-total_exp_W{1} = eye(3);
-w_pri{1} = w{1};
-r_pri{1} = r{1};
-v_pri{1} = v{1};
+Js = sym(zeros(6, n));
 
 for i = 1:n
     signed_exp_W{i} = expm(sign{i} * theta(i) * hat(w{i}));
     simplify(signed_exp_W{i});
 end
 
+total_exp_W{1} = signed_exp_W{1};
+w_pri{1} = w{1};
+r_pri{1} = r{1};
+v_pri{1} = v{1};
+
 for i = 2:n
     total_exp_W{i} = total_exp_W{i-1} * signed_exp_W{i};
     simplify(total_exp_W{i});
 end
 for i = 2:n
-    r_pri{i} = [0;0;0];
+    r_pri{i} = r{1};
     for j = 2:i
         r_pri{i} = r_pri{i} + total_exp_W{j-1} * r{j};
     end
@@ -52,6 +54,13 @@ for i = 2:n
     xi_pri{i} = [w_pri{i}; v_pri{i}];
     simplify(xi_pri{i});
     end
-    w_pri{i}
+end
+
+for i = 1:n
+    Js(:, i) = [w_pri{i}; v_pri{i}];
+    w_pri{i};
+    r_pri{i};
+    v_pri{i};
+    signed_exp_W{i};
 end
 
