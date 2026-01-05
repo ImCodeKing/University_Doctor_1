@@ -69,7 +69,7 @@ $$F = \frac{K \cdot \Theta}{\gamma L \cos\Theta} = \frac{1.20 \times 10^{-11} \t
 
 绘制伪刚体模型如下图所示。
 
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="1-2.png" width="50%">
 </div>
 
@@ -77,7 +77,7 @@ $$F = \frac{K \cdot \Theta}{\gamma L \cos\Theta} = \frac{1.20 \times 10^{-11} \t
 
 ### 3、学习使用DAS2D伪刚体模型模块，模拟分析（2）中的情况
 DAS2D模拟如下所示。
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="1-3.png" width="50%">
 </div>
 
@@ -98,7 +98,7 @@ DAS2D模拟如下所示。
 
 平行四杆机构如图所示，材料选用铝合金。
 
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="2-1.png" width="50%">
 </div>
 
@@ -107,7 +107,7 @@ DAS2D模拟如下所示。
 ### 2、将其中一个连架杆变为柔顺杆，选定合适的伪刚体模型进行模拟
 3-4杆变为柔顺杆，选定伪刚体模型如图所示。
 
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="2-2.png" width="35%">
   <img src="2-2-1.png" width="45%">
 </div>
@@ -119,7 +119,7 @@ DAS2D模拟如下所示。
 
 输入杆（1–2）所承受的力/力矩经由连杆（2–3）传递至点 3。点 3 的位移由两部分共同决定：一方面是输入杆驱动所引起的刚体运动，另一方面是 3–4 弹性杆在伪刚体模型下产生的弹性变形。随着输入载荷的增大，点 3 的位移显著增加；而在载荷相同的条件下，3–4 弹性杆的等效刚度越大，点 3 的位移越小。具体关系如下图所示。
 
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="2-3.png" width="35%">
   <img src="2-3-1.png" width="35.8%">
 </div>
@@ -134,14 +134,14 @@ DAS2D模拟如下所示。
 
 ### 1、绘制平行四杆机构，在报告中标注相关材料参数选择
 材料选取铝合金，平行四杆机构如图所示。
-<div align="center">
-  <img src="3-1.png" width="50%">
+<div style="display:flex; justify-content:center; gap:20px;">
+  <img src="3-1.png" width="35%">
 </div>
 
 
 ### 2、将其中两个连架杆变为柔顺杆形成柔性铰链，选定合适的伪刚体模型进行模拟
 伪刚体模型模型及参数
-<div align="center">
+<div style="display:flex; justify-content:center; gap:20px;">
   <img src="3-1.png" width="35%">
   <img src="3-2.png" width="45%">
 </div>
@@ -149,18 +149,29 @@ DAS2D模拟如下所示。
 
 ### 3、分析输入杆（2-3）受垂直方向力和输出（点2及点3）的位置变化关系
 位置变化如图所示。
-<div align="center">
-  <img src="3-3.png" width="50%">
+<div style="display:flex; justify-content:center; gap:20px;">
+  <img src="3-3.png" width="35%">
 </div>
 
 
 
 ## 题目4
 
-自定义连续体机构的尺寸及驱动杆件的初始长度，利用 Matlab / Python 完成建模。针对两根绳 / 丝 / 线驱动系统建立正向运动学模型，考虑 $l_1$ 及 $l_2$ 增减量相同时，分析该变化量与以下变量之间的关系：
+### 自定义连续体机构的尺寸及驱动杆件的初始长度，利用 Matlab / Python 完成建模。针对两根绳 / 丝 / 线驱动系统建立正向运动学模型，考虑 $l_1$ 及 $l_2$ 增减量相同时，分析该变化量与弯折角度 $\theta$和末端坐标 $(x, y)$之间的关系：
 
-- 弯折角度 $\theta$
-- 末端坐标 $(x, y)$
 
+当两根绳索的增减量相同时，长度差 $L_2 - L_1$ 保持不变，从而弯折角 $\theta$ 不发生变化。此时有  
+$$
+\frac{X}{Y} = \tan\left(\frac{\theta}{2}\right),
+$$
+表明连续体末端的轨迹点始终位于一条过原点、斜率为 $\cot(\theta/2)$ 的直线上。另一方面，由于等效长度  
+$$
+L = \frac{l_1 + l_2}{2},
+$$
+当两根绳索同时等量增减时，连续体的中性层不仅发生弯曲，还伴随着轴向伸缩。因此，该问题可等效为初始绳长不同的连续体在相同弯折角条件下的运动分析，其末端位置轨迹的变化规律如图所示。
+
+<div style="display:flex; justify-content:center; gap:20px;">
+  <img src="4.png" width="50%">
+</div>
 
 
